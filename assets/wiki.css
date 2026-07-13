@@ -87,3 +87,26 @@
   font-size: 1.5rem;
   font-weight: 700;
 }
+
+.app-site-search__result-title,
+.app-site-search__result-snippet {
+  display: block;
+}
+
+.app-site-search__result-snippet {
+  color: #505a5f;
+  font-size: 1rem;
+  line-height: 1.25;
+  margin-top: 0.25rem;
+}
+
+.app-site-search__option--focused .app-site-search__result-snippet,
+.app-site-search__option:hover .app-site-search__result-snippet {
+  color: inherit;
+}
+
+.app-site-search__result-snippet mark {
+  background-color: #ffdd00;
+  color: #0b0c0c;
+  padding: 0 0.1em;
+}

@@ -6,6 +6,31 @@ function capitalizeWords(str) {
     });
 }
 
+function searchContent(html) {
+    return String(html)
+        .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+        .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<!--[\s\S]*?-->/g, ' ')
+        .replace(/<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>/gi, ' ')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function searchHeadings(html) {
+    return Array.from(String(html).matchAll(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi))
+        .map(function(match) {
+            return searchContent(match[1]);
+        })
+        .filter(Boolean);
+}
+
 module.exports = function(eleventyConfig) {
     // Register the plugin
     eleventyConfig.addPlugin(govukEleventyPlugin,{
@@ -14,6 +39,10 @@ module.exports = function(eleventyConfig) {
                 text: 'Digital Land'
             },
             productName: 'Technical Documentation',
+            search: {
+                indexPath: '/search-index.json',
+                label: 'Search documentation'
+            }
         },
         titleSuffix: 'Digital Land',
         stylesheets:['/assets/wiki.css']
@@ -30,6 +59,8 @@ module.exports = function(eleventyConfig) {
     
     // Register specific options
     eleventyConfig.setQuietMode(false)
+    eleventyConfig.addFilter('searchContent', searchContent);
+    eleventyConfig.addFilter('searchHeadings', searchHeadings);
     eleventyConfig.addGlobalData("layout", "base.njk");
     eleventyConfig.addPassthroughCopy("assets")
     eleventyConfig.addPassthroughCopy("images");
