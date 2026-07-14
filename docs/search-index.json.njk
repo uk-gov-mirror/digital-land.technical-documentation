@@ -14,6 +14,6 @@ layout: false
     "headings": {{ item.templateContent | searchHeadings | dump | safe }},
     "content": {{ item.templateContent | searchContent | dump | safe }},
     "templateContent": {{ item.templateContent | tokenize | dump | safe }},
-    "url": {{ item.url | canonicalUrl | pretty | dump | safe }}
+    "url": {{ item.url | prefixUrl | pretty | dump | safe }}
   }{% if not loop.last %},{% endif %}
 {% endfor %}]

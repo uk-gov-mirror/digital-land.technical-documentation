@@ -33,6 +33,7 @@ Our monitoring and alerting aims to:
 ### ✅ Availability and Health
 
 - Health checks for public endpoints
+- Service health checks should include critical dependencies so a service can report as degraded when it is reachable but cannot perform its core function
 - Alerts for incidents affecting production (AWS alarms, Airfow alerts)
 - Application health metrics
 - Aiflow health metrics
@@ -113,5 +114,4 @@ Dashboards are reviewed regularly for completeness and accuracy.
 - [GDS Monitoring Guide](https://www.gov.uk/service-manual/technology/monitoring-your-service)
 - [Sentry Documentation](https://docs.sentry.io/)
 - [AWS CloudWatch Documentation](https://docs.aws.amazon.com/cloudwatch/)
-
 
