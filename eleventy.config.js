@@ -32,6 +32,8 @@ function searchHeadings(html) {
 }
 
 module.exports = function(eleventyConfig) {
+    const pathPrefix = process.env.GITHUB_ACTIONS ? '/technical-documentation/' : '/'
+
     // Register the plugin
     eleventyConfig.addPlugin(govukEleventyPlugin,{
         header: {
@@ -40,7 +42,7 @@ module.exports = function(eleventyConfig) {
             },
             productName: 'Technical Documentation',
             search: {
-                indexPath: '/search-index.json',
+                indexPath: `${pathPrefix}search-index.json`,
                 label: 'Search documentation'
             }
         },
@@ -154,6 +156,6 @@ module.exports = function(eleventyConfig) {
       layouts: '../layouts'
     //   layouts: '../node_modules/@x-govuk/govuk-eleventy-plugin/layouts'
     },
-    pathPrefix: process.env.GITHUB_ACTIONS ? '/technical-documentation/' : '/'
+    pathPrefix: pathPrefix
   }
 };
