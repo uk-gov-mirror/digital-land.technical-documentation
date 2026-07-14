@@ -6,6 +6,65 @@ Across our infrastructure we host multiple applications and data pipelines all u
 
 We're still developing and improving our approach to monitoring so please reach out with any new ideas or improvements!
 
+### Status monitoring
+
+Public services should expose a `/health` endpoint that can be used by our status monitoring. The endpoint should do more than confirm that the web application can return a response. It should report whether the service can perform its core user-facing function.
+
+Critical dependencies should contribute to the health response. For example, if a service depends on Redis, Datasette, a database, or another internal API to serve users, the health check should include that dependency. A service should not report as fully healthy when a critical dependency is unavailable.
+
+The recommended pattern is:
+
+* return `200` when the health endpoint itself is reachable
+* include a JSON health payload with a `status` value
+* report `healthy` when the service and its critical dependencies are working
+* report `degraded` when the service is reachable but a critical dependency or important capability is not working
+* report an error response only when the health endpoint itself cannot run
+
+For example, a healthy response should look like:
+
+```json
+{
+  "status": "healthy",
+  "checks": {
+    "redis": "healthy",
+    "datasette": "healthy"
+  }
+}
+```
+
+A degraded response should still make clear which dependency is causing the degraded state:
+
+```json
+{
+  "status": "degraded",
+  "checks": {
+    "redis": "healthy",
+    "datasette": "unavailable"
+  }
+}
+```
+
+Our status monitoring platform is [UpptimeJS](https://upptime.js.org/). The configuration is held in the [digital-land/service-status](https://github.com/digital-land/service-status) repository.
+
+Status monitoring should check the health endpoint and interpret the payload, not only the HTTP status code. Configure the service in `.upptimerc.yml` so UpptimeJS:
+
+* calls the service `/health` endpoint
+* expects the health endpoint to return `200`
+* marks the service as down if the response does not include a health status payload
+* marks the service as degraded if the payload reports `{"status":"degraded"`
+
+For example:
+
+```yaml
+sites:
+  - name: Provide
+    url: https://provide.planning.data.gov.uk/health
+    expectedStatusCodes:
+      - 200
+    __dangerous__body_down_if_text_missing: '{"status":'
+    __dangerous__body_degraded: '{"status":"degraded"'
+```
+
 ### Slack notifications
 
 The most useful tool at our disposable is the delivery of key notifications in our Slack notifications channel. If you are not part of this reach out to the tech ead to get access. There are several key types of notifications:

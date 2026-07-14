@@ -31,6 +31,14 @@ function searchHeadings(html) {
         .filter(Boolean);
 }
 
+function prefixUrl(url, pathPrefix) {
+    if (!url || pathPrefix === '/' || URL.canParse(url)) {
+        return url;
+    }
+
+    return `${pathPrefix.replace(/\/$/, '')}${url}`;
+}
+
 module.exports = function(eleventyConfig) {
     const pathPrefix = process.env.GITHUB_ACTIONS ? '/technical-documentation/' : '/'
 
@@ -63,6 +71,9 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.setQuietMode(false)
     eleventyConfig.addFilter('searchContent', searchContent);
     eleventyConfig.addFilter('searchHeadings', searchHeadings);
+    eleventyConfig.addFilter('prefixUrl', function(url) {
+        return prefixUrl(url, pathPrefix);
+    });
     eleventyConfig.addGlobalData("layout", "base.njk");
     eleventyConfig.addPassthroughCopy("assets")
     eleventyConfig.addPassthroughCopy("images");
