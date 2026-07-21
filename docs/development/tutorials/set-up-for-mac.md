@@ -16,6 +16,7 @@ Contents:
 * Set up SSH for Github
 * Recommended git configuration
 * Install sqlite3 and build dependencies
+* Install geospatial tools
 * Install Make
 
 * Install Python (and understand venvs)
@@ -243,6 +244,16 @@ If you are following this guide manually, add that line to your `~/.zprofile` (o
 
 > **Install these before Python.** The Python build reads these libraries at compile time. Installing Python first and adding the libraries later will produce a Python build that is missing the corresponding modules.
 
+
+### Install geospatial tools
+
+GDAL is a set of libraries and command-line tools for reading, writing, and processing geospatial data. It is used across our pipelines and in the main application. SpatiaLite is a geospatial extension for SQLite and is the reason we installed the Homebrew version of sqlite3 earlier.
+
+```sh
+brew install gdal spatialite-tools
+```
+
+No additional shell configuration is needed — both install their binaries into `/opt/homebrew/bin`, which is already on your `PATH` via the Homebrew setup in `.zprofile`.
 
 ### Install Make
 
