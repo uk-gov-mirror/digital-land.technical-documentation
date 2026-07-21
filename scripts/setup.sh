@@ -158,7 +158,23 @@ for pkg in sqlite xz openssl readline zlib tcl-tk libpq; do
 done
 
 # -------------------------------------------------------
-# 6. Make
+# 6. Geospatial tools
+# -------------------------------------------------------
+
+section "Geospatial tools"
+
+for pkg in gdal spatialite-tools; do
+  if brew list $pkg >/dev/null 2>&1; then
+    echo "$pkg is already installed, skipping."
+  else
+    echo "Installing $pkg..."
+    brew install $pkg
+    echo "$pkg installed successfully."
+  fi
+done
+
+# -------------------------------------------------------
+# 7. Make
 # -------------------------------------------------------
 
 section "Make"
@@ -172,7 +188,7 @@ else
 fi
 
 # -------------------------------------------------------
-# 7. pyenv
+# 8. pyenv
 # -------------------------------------------------------
 
 section "pyenv"
@@ -235,7 +251,7 @@ echo "  Official docs: https://github.com/pyenv/pyenv"
 echo "  macOS guide:   https://mac.install.guide/python/install-pyenv"
 
 # -------------------------------------------------------
-# 8. Oh My Zsh
+# 9. Oh My Zsh
 # -------------------------------------------------------
 
 section "Oh My Zsh"
@@ -251,7 +267,7 @@ else
 fi
 
 # -------------------------------------------------------
-# 9. fnm (Node version manager)
+# 10. fnm (Node version manager)
 # -------------------------------------------------------
 
 section "fnm"
@@ -277,7 +293,7 @@ else
 fi
 
 # -------------------------------------------------------
-# 10. Apps
+# 11. Apps
 # -------------------------------------------------------
 
 section "Apps"
@@ -351,7 +367,7 @@ for APP in $SELECTED; do
 done
 
 # -------------------------------------------------------
-# 11. VS Code Extensions (optional)
+# 12. VS Code Extensions (optional)
 # -------------------------------------------------------
 
 section "VS Code Extensions"
@@ -461,7 +477,7 @@ else
 fi
 
 # -------------------------------------------------------
-# 11. Shell Configuration (.zprofile and .zshrc)
+# 13. Shell Configuration (.zprofile and .zshrc)
 # -------------------------------------------------------
 
 section "Shell Configuration (.zprofile + .zshrc)"
