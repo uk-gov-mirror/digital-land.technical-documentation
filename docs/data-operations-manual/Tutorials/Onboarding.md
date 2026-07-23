@@ -81,8 +81,8 @@ The [Following the data flow tutorial](../Following-the-data-flow) tutorial uses
 
 #### Data quality
 * Read the following pages:
-    * [Data quality needs](../../Explanation/Key-Concepts/Data-quality-1-needs)
-    * [Data quality framework](../../Explanation/Key-Concepts/Data-quality-2-framework) 
+    * [Data quality needs](../../Explanation/Key-Concepts/Data-Quality/Data-quality-1-needs)
+    * [Data quality framework](../../Explanation/Key-Concepts/Data-Quality/Data-quality-2-framework)
 
 
 
