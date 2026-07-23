@@ -2,11 +2,11 @@
 title: Data quality framework
 ---
 
-We have a structured approach to how we identify and fix issues with data quality, which we refer to as our *data quality framework*.
+We have a structured approach to how we identify and fix issues with data quality, which we refer to as our _data quality framework_.
 
-A key part of this framework is a [list of data quality requirements](https://docs.google.com/spreadsheets/d/1kMAKOAm6Wam-AJb6R0KU-vzdvRCmLVN7PbbTAUh9Sa0/edit#gid=2142834080) built and maintained by the data management team. 
+A key part of this framework is a [list of data quality requirements](https://docs.google.com/spreadsheets/d/1kMAKOAm6Wam-AJb6R0KU-vzdvRCmLVN7PbbTAUh9Sa0/edit#gid=2142834080) built and maintained by the data management team.
 
-These documented data quality requirements help the data management team understand *what* needs to be assessed, *why* it needs to be assessed, and plan *how* it can be assessed. We use the process below to go from identifying a data quality need through to being able to actively monitor whether or not it is being met, and then raise the issues to the party responsible for fixing them.
+These documented data quality requirements help the data management team understand _what_ needs to be assessed, _why_ it needs to be assessed, and plan _how_ it can be assessed. We use the process below to go from identifying a data quality need through to being able to actively monitor whether or not it is being met, and then raise the issues to the party responsible for fixing them.
 
 ![defining-data-quality-process](/images/data-operations-manual/defining-data-quality-process.png)
 
@@ -22,51 +22,74 @@ These documented data quality requirements help the data management team underst
 
 Here's an example using a requirement we have based on the expectation that providers of our ODP datasets should only be providing data within their local planning authority boundary. This helps us identify a quality issue like if Bristol City Council were to supply conservation-area data where a polygon was in Newcastle.
 
-
 > 1. Quality requirement: geometry data should be within the expected boundary of the provider’s administrative area
-> 
 > 1. Issue definition: An ‘out of expected LPA bounds’ issue for ODP datasets is when the supplied geometry does not intersect at all with the provider’s Local Planning Authority boundary
-> 
 > 1. Issue check implementation: [expectation rules](https://datasette.planning.data.gov.uk/digital-land/expectation?_facet=name&name=Check+no+entities+are+outside+of+the+local+planning+authority+boundary) which test for any of these issues on all ODP datasets.
-> 
 > 1. Issue check use (monitoring): surfacing information about out of bounds issues in the Submit service so that LPAs can act on this and fix the issues.
 
+## Monitoring data quality
 
-# Monitoring data quality
-
-Once data quality issues are defined, and checks for them have been implemented, we're able to systematically monitor for any occurances of data quality issues. 
+Once data quality issues are defined, and checks for them have been implemented, we're able to systematically monitor for any occurances of data quality issues.
 
 Monitoring is carried out in one of two ways, depending on whether the responsibility for fixing the issue is external (i.e. with the data provider) or internal (i.e. with the data management team):
 
-* By the **[Submit service](https://submit.planning.data.gov.uk/)**, to allow LPAs to self-monitor and fix issues at source
-
-* By the **Data Management team**, to resolve data quality issues that can be fixed by a change in configuration
+- By the **[Check and Provide service](https://provide.planning.data.gov.uk/)**, to allow LPAs to self-monitor and fix issues at source
+- By the **Data Management team**, to resolve data quality issues that can be fixed by a change in configuration
 
 See our [monitoring data quality](../../../Tutorials/Monitoring-Data-Quality) page which gives guidance on the processes we follow to fix quality issues raised by our operational monitoring. These processes go hand-in-hand with our [data quality requirements](https://docs.google.com/spreadsheets/d/1kMAKOAm6Wam-AJb6R0KU-vzdvRCmLVN7PbbTAUh9Sa0/edit#gid=2142834080), which defines our full backlog of requirements, issue definitions and monitoring approach.
 
 Note: The Data Management team also has a [defined process](https://docs.google.com/document/d/1YGM8W0E2_qW60k8hlancVWBe0aYPNIfefpctNwQ3MSs/edit) for tackling ad-hoc data quality issues which are raised for data on the platform. This begins with an investigation, followed by one or both of a data fix and root cause resolution. This process may also result in the formal definition of a data quality requirement and issue check so that it can be handled in future through the data quality management framework.
 
-
-# Measuring data quality
+## Measuring data quality
 
 With well defined data quality requirements and issues, it's possible to use them to make useful summaries of data quality at different scales, for example assessing whether the data on a particular endpoint meets all of the requirements for a particular purpose.
 
-We've created a *data quality measurement framework* to define different data quality levels based on the requirements of ODP software. This measurement framework is used to score data provisions (a dataset from a provider) and create summaries of the number of provisions at each quality level.
+We've created a _data quality measurement framework_ to score data provisions (a dataset from a provider) on a 0-6 scale and create summaries of the number of provisions at each quality level. The framework is applied slightly differently depending on a dataset's scope:
 
-The table below visualises the framework:
+- **ODP datasets** — the 8 datasets used by Open Digital Planning software
+- **Mandated datasets** — datasets LPAs are statutorily required to provide, or specifically encouraged to provide in their role as a local planning authority
+- **Single-source datasets** — all other datasets
 
-![quality framework table](/images/data-operations-manual/quality-framework-table.png)
+## The model: authoritative status crossed with data quality
 
-The criteria marked as "true" at each level must be met by a data provision in order for it to be scored at that level. Therefore the framework defines 5 criteria that must be met in order for a data provision to be *good for ODP*. The levels are cumulative, so those same 5 criteria plus 3 more must be met in order for a provision to be scored as *data that is trustworthy*. Where we have data from alternative providers (e.g. Historic England conservation-area data) the first criteria cannot be met so it is scored as the first quality level, *some data*.
+Each provision is scored on two things:
 
-Each of the criteria are based around one or more data quality requirements. For example, the "No other types of validity errors" criteria is based on meeting 7 different data validity requirements from the specifications, while the "No unknown entities" criteria is based on just one timeliness requirement. We track how requirements are mapped to criteria on the [measurement tab of the data quality requirements tracker](https://docs.google.com/spreadsheets/d/1kMAKOAm6Wam-AJb6R0KU-vzdvRCmLVN7PbbTAUh9Sa0/edit?gid=1268095085#gid=1268095085).
+- **Authoritative** — whether the data is confirmed to actually come from the authoritative source for that dataset, rather than an alternative provider
+- **Data quality** — how good the data itself is: severe issues present (e.g. geometry errors), only minor validity/consistency issues, or no issues at all
 
-The framework is flexible and allows us to add more criteria to each level, or re-order them as required. Note that the criteria marked as "planned" are in development, and will be able to be used in the measurement framework once live.
+Crossing these two gives six levels (plus 0 for no data at all):
 
-The chart below is an example of using the framework to measure the quality levels across all ODP dataset provisions (on 2024-11-20):
+| Level | Label                              |
+| ----- | ---------------------------------- |
+| 0     | no data                            |
+| 1     | non-authoritative                  |
+| 2     | non-authoritative usable data      |
+| 3     | non-authoritative trustworthy data |
+| 4     | authoritative data                 |
+| 5     | authoritative usable data          |
+| 6     | authoritative trustworthy data     |
 
-![quality framework table](/images/data-operations-manual/ODP-data-quality-levels.png)
+Importantly, being non-authoritative is **not** a hard cap on the rest of the score — a non-authoritative provision can still independently reach _trustworthy_ (level 3) if its data quality is otherwise clean. Authoritative status only ever determines which half of the scale a provision sits in (1-3 vs 4-6), not whether it can reach the top of its half.
+
+### Determining authoritative status
+
+Rather than inferring provenance indirectly (e.g. via a geospatial check against a provider's boundary), authoritative status is read directly from a signal the platform already computes: every dataset's own `entity` table carries a `quality` value per entity (`none`, `some`, `indicative`, `authoritative`, `usable`, or `trustworthy` — defined with a priority ordering in the `quality` reference table). A provision counts as authoritative if any of its entities reach `authoritative` priority or above.
+
+This is a more reliable check than inferring provenance from geography, because a provider can be registered as the _expected_ authoritative source for a dataset while some or all of the actual data held for their area still comes from an alternative provider — the entity-level `quality` field reflects what was actually submitted, not just who's nominally responsible for it.
+
+## Overrides
+
+Two situations override the score entirely:
+
+- **Zero entities**: if a provision has an active endpoint but produced zero actual entities (e.g. every submitted row failed processing), it's scored `0. no data` outright — there's nothing meaningful for the data quality or authoritative axes to assess.
+- **Staleness** (single-source datasets only): a provision whose endpoint hasn't been refreshed in over a year is capped out of _trustworthy_ down to _usable_. This only applies to single-source datasets, since ODP and mandated datasets already have other quality signals to lean on, and staleness only acts as a ceiling — it doesn't push an already-lower score down any further.
+
+## Mapping criteria to requirements
+
+Each data quality tier and the authoritative check are based around one or more data quality requirements. For example, the _usable_ tier is based on meeting several data validity requirements from the specifications, while the authoritative check is based on the entity-level quality signal described above. We track how requirements map to criteria on the [measurement tab of the data quality requirements tracker](https://docs.google.com/spreadsheets/d/1kMAKOAm6Wam-AJb6R0KU-vzdvRCmLVN7PbbTAUh9Sa0/edit?gid=1268095085#gid=1268095085).
+
+The framework is flexible and allows us to add more criteria to a tier, adjust which datasets get which overrides, or extend the scope split further, as requirements evolve.
+
+![data quality matrix](/images/data-operations-manual/data-quality-levels.png)
+
 (see quality reporting in the [jupyter-analysis](https://github.com/digital-land/jupyter-analysis) repo for up to date versions)
-
-
-[^1]:  The Government Data Quality Framework: https://www.gov.uk/government/publications/the-government-data-quality-framework/the-government-data-quality-framework\#why-do-we-need-a-data-quality-framework
