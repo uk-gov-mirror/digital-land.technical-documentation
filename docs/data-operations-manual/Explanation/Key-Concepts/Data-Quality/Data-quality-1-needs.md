@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Introduction to Data Quality
 ---
 
 Data quality can be thought of as ‘fitness for purpose’ \- i.e. an understanding of whether a dataset is fit for its intended uses.[^1] Consequently, there is really no objective definition of “quality”, rather quality is defined in relation to the requirements that are made of the data by its intended use. Quality requirements might consider different measurable characteristics of data, which are often referred to as dimensions.

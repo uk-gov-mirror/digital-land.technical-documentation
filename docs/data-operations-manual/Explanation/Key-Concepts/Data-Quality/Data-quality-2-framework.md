@@ -1,5 +1,5 @@
 ---
-title: Data quality framework
+title: Data Quality Framework
 ---
 
 We have a structured approach to how we identify and fix issues with data quality, which we refer to as our _data quality framework_.
@@ -93,3 +93,18 @@ The framework is flexible and allows us to add more criteria to a tier, adjust w
 ![data quality matrix](/images/data-operations-manual/data-quality-levels.png)
 
 (see quality reporting in the [jupyter-analysis](https://github.com/digital-land/jupyter-analysis) repo for up to date versions)
+
+## Future work
+
+The scoring described above only applies at the provision level. We're planning to extend quality scoring to three further levels of the data model, each scored independently but built from the layer beneath it:
+
+- **Fact** — a single value, for a single field, on a single entity, from a single source
+- **Entity** — a real-world thing (e.g. a single brownfield land site), built from one or more facts
+- **Dataset** — the full national collection for a dataset (e.g. all brownfield land), built from every provision within it
+
+We've also agreed to split how quality is surfaced depending on who's responsible for acting on it:
+
+- **Internally**, quality information will be surfaced on our own Power BI dashboards, for issues the data management team needs to fix
+- **Externally**, quality information will be surfaced to LPAs via the Check and Provide platform, for issues they need to fix in their own data
+
+This work hasn't started yet — the design is still being worked through, including exactly how each level's score should be calculated and which checks should gate which tiers.
