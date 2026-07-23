@@ -121,3 +121,5 @@ At this stage transformed resources from data providers are combined into databa
 _Example Dataset quality assessment_
 
 Having access to the whole dataset makes it possible to assess things like whether the values in a reference field are unique, or whether the reference values used across conservation-area and conservation-area-document datasets link correctly.
+
+[^1]: The Government Data Quality Framework: https://www.gov.uk/government/publications/the-government-data-quality-framework/the-government-data-quality-framework\#why-do-we-need-a-data-quality-framework
