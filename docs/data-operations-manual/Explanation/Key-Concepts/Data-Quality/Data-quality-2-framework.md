@@ -86,7 +86,7 @@ Two situations override the score entirely:
 
 ## Mapping criteria to requirements
 
-Each data quality tier and the authoritative check are based around one or more data quality requirements. For example, the _usable_ tier is based on meeting several data validity requirements from the specifications, while the authoritative check is based on the entity-level quality signal described above. We track how requirements map to criteria on the [measurement tab of the data quality requirements tracker](https://docs.google.com/spreadsheets/d/1kMAKOAm6Wam-AJb6R0KU-vzdvRCmLVN7PbbTAUh9Sa0/edit?gid=1268095085#gid=1268095085).
+Each data quality tier and the authoritative check are based around one or more data quality requirements. For example, the _usable_ tier is based on meeting several data validity requirements from the specifications, while the authoritative check is based on the entity-level quality signal described above. We track how requirements map to criteria on the [measurement tab of the data quality requirements tracker](https://mhclg.sharepoint.com/:x:/s/DigitalPlanning/IQAHk7i3ipDjSpWI0AI37fGVAUMo92OeA-L-fj3l_zKAWdc?e=BRl17l).
 
 The framework is flexible and allows us to add more criteria to a tier, adjust which datasets get which overrides, or extend the scope split further, as requirements evolve.
 
