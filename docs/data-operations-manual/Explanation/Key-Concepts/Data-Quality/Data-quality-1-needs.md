@@ -42,7 +42,7 @@ A need to understand whether the data pipeline process is behaving as expected i
 
 ### Strategic Programme objectives
 
-The way that LPAs are being funded by DLUHC informs some requirements about supplying data. For example, LPAs receiving funding through the Planning Software Improvement Fund are expected to supply data for all of the pilot specifications, which relates to the completeness data quality dimension. Additionally, there may be internal business requirements relating to the accuracy or timeliness of data published on the platform.
+The way that LPAs are being funded by MHCLG informs some requirements about supplying data. For example, LPAs receiving funding through the Planning Software Improvement Fund are expected to supply data for all of the pilot specifications, which relates to the completeness data quality dimension. Additionally, there may be internal business requirements relating to the accuracy or timeliness of data published on the platform.
 
 ### Data consumers
 
