@@ -110,3 +110,23 @@
   color: #0b0c0c;
   padding: 0 0.1em;
 }
+
+/* Wide service-flow diagrams scroll within the content column on small screens. */
+.manage-service-flow {
+  max-width: 100%;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.manage-service-flow:focus {
+  outline: 3px solid #ffdd00;
+  outline-offset: 2px;
+}
+
+.manage-service-flow pre {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}

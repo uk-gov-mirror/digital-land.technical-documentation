@@ -111,11 +111,12 @@ module.exports = function(eleventyConfig) {
                 if (parts.length===1 && parts[0] === 'index.md') {
                     if (!structure[currentDir]) {
                         structure[currentDir] = {
-                            title: capitalizeWords(currentDir.replace(/-/g, ' ')),
+                            title: pageObj.title,
                             url: pageObj.url,
                             children: {}
                         };
                     } else {
+                        structure[currentDir].title = pageObj.title;
                         structure[currentDir].url = pageObj.url;
                     }
                     return;
