@@ -55,6 +55,28 @@ Confirmed the backend pipeline is internally coherent for these datasets. The fi
 
 ---
 
+## Barnet boundary overlaps
+
+**Problem statement**
+
+Barnet Council raised several concerns in one go: geometries from neighbouring LPAs appearing to overlap into Barnet's boundary (most notably Enfield's Trent Park conservation area against Barnet's own Monken Hadley), a Camden-submitted listed building outline sitting entirely within Barnet rather than Camden, and — separately — a suspicion that the polygons served by the Planning Data platform didn't match the extents in their own endpoint, raising the question of whether geometries are being simplified somewhere in the pipeline. See [digital-land/config#2461](https://github.com/digital-land/config/issues/2461).
+
+**Approach**
+
+Investigated three things in turn: whether Trent Park and Monken Hadley are genuinely distinct conservation areas or the same area duplicated across two LPAs' submissions; whether the Camden listed building (entity `42115855`) legitimately sits inside Barnet's boundary; and, more systematically, which geometries from Barnet's six neighbouring LPAs (Brent, Camden, Enfield, Haringey, Harrow, Hertsmere) overlap into Barnet's boundary at all, across conservation-area, article-4-direction-area and listed-building-outline.
+
+**Results**
+
+Trent Park and Monken Hadley are genuinely separate conservation areas — the overlap traced back to Enfield's own Trent Park geometry not matching the boundary in their appraisal document, a data quality issue on Enfield's side rather than a platform bug. The Camden listed building was confirmed to correctly sit within Barnet's boundary — again a case for the submitting LPA to reconcile, not a processing error. The systematic check found 17 entities from neighbouring LPAs overlapping into Barnet's boundary, the majority minor and consistent with resolution/digitising differences rather than genuine duplicates.
+
+**Outcome**
+
+The `duplicate_geometry_check` expectation was extended with a new `any_match` label ([digital-land-python#520](https://github.com/digital-land/digital-land-python/pull/520)), so overlaps between neighbouring LPAs' geometries — like Trent Park/Monken Hadley — are now caught even when they don't meet the existing complete/single-match thresholds. Barnet's question about whether geometries are simplified before publishing led directly to opening [digital-land/config#2497](https://github.com/digital-land/config/issues/2497), investigated separately below.
+
+📓 [analysis/2026-04_barnet_boundary_overlaps](https://github.com/digital-land/jupyter-analysis/tree/main/analysis/2026-04_barnet_boundary_overlaps)
+
+---
+
 ## Simplified geometry investigation
 
 **Problem statement**
